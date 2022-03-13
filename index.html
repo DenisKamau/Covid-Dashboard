@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/covid.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Inter:wght@900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <title>Covid Dashboard</title>
+</head>
+
+<body>
+    <!-- Top Section -->
+    <section id="topSection">
+        <div class="container">
+            <div class="selector">
+                <div class="selectorItem">
+                    <input type="radio" id="radio1" name="selector" class="selectorItemRadio" checked>
+                    <label for="radio1" class="selectorItemLabel firstLabel">Today</label>
+                </div>
+                <div class="selectorItem">
+                    <input type="radio" id="radio2" name="selector" class="selectorItemRadio">
+                    <label for="radio2" class="selectorItemLabel">This week</label>
+                </div>
+                <div class="selectorItem">
+                    <input type="radio" id="radio3" name="selector" class="selectorItemRadio">
+                    <label for="radio3" class="selectorItemLabel">This month</label>
+                </div>
+                <div class="selectorItem">
+                    <input type="radio" id="radio4" name="selector" class="selectorItemRadio">
+                    <label for="radio4" class="selectorItemLabel">This year</label>
+                </div>
+            </div>
+            <div class="totalResultsRow">
+                <div class="brandLogo">
+                    <img loading="lazy" src="/images/logo.png" alt="Healthcare logo">
+                    <p>Health Care</p>
+                </div>
+                <div class="divider"></div>
+                <div class="totalResults">
+                    <div class="totalResultsLeft">
+                        <p>Total Tested</p>
+                        <p id="totalTests">Loading...</p>
+                        <p>Travel 123,932</p>
+                    </div>
+                    <div class="totalResultsRight">
+                        <img loading="'lazy" src="/images/chart.png" alt="chart results">
+                        <p>Screening 47,985</p>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="totalResults">
+                    <div class="totalResultsLeft">
+                        <p>Citizens Tested</p>
+                        <p>21,800</p>
+                        <div class="positiveCounter">
+                            <div>
+                                <svg height="20" width="20">
+                                    <circle cx="7" cy="10" r="5" stroke="red" stroke-width="2" fill="transparent" />
+                                </svg>
+                                <p>Positive</p>
+                            </div>
+                            <p>123,932</p>
+                        </div>
+                    </div>
+                    <div class="totalResultsRight">
+                        <img src="/images/chart.png" alt="chart results">
+                        <div class="negativeCounter">
+                            <div>
+                                <svg height="20" width="20">
+                                    <circle cx="7" cy="10" r="5" stroke="#83B435" stroke-width="2" fill="transparent" />
+                                </svg>
+                                <p>Negative</p>
+                            </div>
+                            <p>123,932</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="totalResults">
+                    <div class="totalResultsLeft">
+                        <p>Foreigners Tested</p>
+                        <p>150,097</p>
+                        <div class="positiveCounter">
+                            <div>
+                                <svg height="20" width="20">
+                                    <circle cx="10" cy="10" r="5" stroke="red" stroke-width="2" fill="transparent" />
+                                </svg>
+                                <p>Positive</p>
+                            </div>
+                            <p>123,932</p>
+                        </div>
+                    </div>
+                    <div class="totalResultsRight">
+                        <img src="/images/chart.png" alt="chart results">
+                        <div class="negativeCounter">
+                            <div>
+                                <svg height="20" width="20">
+                                    <circle cx="10" cy="10" r="5" stroke="green" stroke-width="2" fill="transparent" />
+                                </svg>
+                                <p>Negative</p>
+                            </div>
+                            <p>123,932</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="infoSection">
+                <div class="info">
+                    <div class="infoTop">
+                        <img loading="lazy" src="/images/Brand icon.png" alt="">
+                        <div class="totalNumber">
+                            <p>Registered labs</p>
+                            <div>
+                                <p>20</p>
+                                <div>
+                                    <img src="/images/increase.png" alt="">
+                                    <p>2%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="infoTop">
+                        <img loading="lazy" src="/images/Brand icon2.png" alt="">
+                        <div class="totalNumber">
+                            <p>Positive cases</p>
+                            <div>
+                                <p id="positiveCases">Loading...</p>
+                                <div>
+                                    <img loading="lazy" src="/images/increase.png" alt="">
+                                    <p>5.4%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="infoBottom">
+                        <p>Males:<span>1932</span></p>
+                        <p>Females:<span>518</span></p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="infoTop">
+                        <img loading="lazy" src="/images/Brand icon3.png" alt="">
+                        <div class="totalNumber">
+                            <p>Negative cases</p>
+                            <div>
+                                <p id="negativeCases">Loading...</p>
+                                <div>
+                                    <img loading="lazy" src="/images/increase.png" alt="">
+                                    <p>5.4%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="infoBottom">
+                        <p>Males:<span>42,054</span></p>
+                        <p>Females:<span>51,371</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Top Section -->
+
+    <!-- Mid Section -->
+    <section id="midSection">
+        <div class="mid container">
+            <div class="map">
+                <p>Covid-19 positive cases by county</p>
+                <hr>
+                <div id="mapid"></div>
+            </div>
+            <div class="counties" id="counties">
+                <p>States leader board</p>
+                <hr>
+                <table id="table">
+                    <tbody class="table">
+                        <tr class="tableHeaders">
+                            <td>County</td>
+                            <td>Positive</td>
+                            <td>Negative</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Section -->
+    <section id="bottomSection">
+        <div class="bottom container">
+            <div class="bottomLeft">
+                <p>Laboratories leader board</p>
+                <hr>
+                <table id="labsTable">
+                    <tbody class="table">
+                        <tr class="tableHeaders">
+                            <td>Laboratory</td>
+                            <td>Total tests</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="bottomRight">
+                <p>Covid-19 cases</p>
+                <hr>
+                <canvas id="myChart" class="chartCanvas"></canvas>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="/scripts/script.js"></script>
+    <script type="module" src="/scripts/chart.js"></script>
+    <script type="module" src="/scripts/map.js"></script>
+</body>
+
+</html>
