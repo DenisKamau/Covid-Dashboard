@@ -1,5 +1,8 @@
 import { mockMonthlyData } from "../data/data.js";
 
+// myChart.canvas.parentNode.style.height = "128px";
+// myChart.canvas.parentNode.style.width = "128px";
+
 const ctx = document.getElementById("myChart").getContext("2d");
 new Chart(ctx, {
   type: "bar",
@@ -23,6 +26,7 @@ new Chart(ctx, {
     ],
   },
   options: {
+    resposive: true,
     scales: {
       y: {
         beginAtZero: false,
