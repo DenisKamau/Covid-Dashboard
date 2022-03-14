@@ -4,7 +4,7 @@ var mymap = L.map("mapid").setView([0.0236, 37.9062], 6);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
-  maxZoom: 10,
+  maxZoom: 15,
 }).addTo(mymap);
 
 counties.reverse().map((county) => {
